@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>💩 Wallpaper Camera Loop</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            overflow: hidden;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            animation: backgroundShift 6s ease-in-out infinite;
+        }
+
+        .wallpaper {
+            position: absolute;
+            width: 300vw;
+            height: 300vh;
+            top: -100vh;
+            left: -100vw;
+            background-image: 
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 35px,
+                    rgba(0,0,0,0) 35px,
+                    rgba(0,0,0,0) 70px
+                ),
+                repeating-linear-gradient(
+                    90deg,
+                    transparent,
+                    transparent 35px,
+                    rgba(0,0,0,0) 35px,
+                    rgba(0,0,0,0) 70px
+                );
+            animation: cameraMove 6s ease-in-out infinite;
+        }
+
+        .emoji-row {
+            display: flex;
+            flex-wrap: wrap;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            line-height: 1;
+        }
+
+        .emoji {
+            font-size: 32px;
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            user-select: none;
+            opacity: 0.9;
+            margin: 0;
+            padding: 0;
+        }
+
+        @keyframes backgroundShift {
+            0% { background: linear-gradient(45deg, #ff6b6b, #4ecdc4); }
+            16.66% { background: linear-gradient(90deg, #4ecdc4, #45b7d1); }
+            33.33% { background: linear-gradient(135deg, #45b7d1, #96c93d); }
+            50% { background: linear-gradient(180deg, #96c93d, #f093fb); }
+            66.66% { background: linear-gradient(225deg, #f093fb, #ffd700); }
+            83.33% { background: linear-gradient(270deg, #ffd700, #ff9f43); }
+            100% { background: linear-gradient(315deg, #ff9f43, #ff6b6b); }
+        }
+
+        @keyframes cameraMove {
+            0% { 
+                transform: translate(0, 0);
+            }
+            12.5% { 
+                transform: translate(-80vw, 0);
+            }
+            25% { 
+                transform: translate(-80vw, -60vh);
+            }
+            37.5% { 
+                transform: translate(0, -60vh);
+            }
+            50% { 
+                transform: translate(60vw, -60vh);
+            }
+            62.5% { 
+                transform: translate(60vw, 40vh);
+            }
+            75% { 
+                transform: translate(-40vw, 40vh);
+            }
+            87.5% { 
+                transform: translate(-40vw, 0);
+            }
+            100% { 
+                transform: translate(0, 0);
+            }
+        }
+
+        .title {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Futura', 'Helvetica Neue', Arial, sans-serif;
+            font-size: 6vw;
+            font-weight: bold;
+            color: #FFD700;
+            text-shadow: 
+                3px 3px 0px #B8860B,
+                -3px -3px 0px #B8860B,
+                3px -3px 0px #B8860B,
+                -3px 3px 0px #B8860B,
+                0px 0px 20px rgba(255, 215, 0, 0.8);
+            z-index: 1000;
+            letter-spacing: 0.1em;
+            text-align: center;
+            user-select: none;
+            animation: titleGlow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes titleGlow {
+            0% { 
+                text-shadow: 
+                    3px 3px 0px #B8860B,
+                    -3px -3px 0px #B8860B,
+                    3px -3px 0px #B8860B,
+                    -3px 3px 0px #B8860B,
+                    0px 0px 20px rgba(255, 215, 0, 0.8);
+            }
+            100% { 
+                text-shadow: 
+                    3px 3px 0px #B8860B,
+                    -3px -3px 0px #B8860B,
+                    3px -3px 0px #B8860B,
+                    -3px 3px 0px #B8860B,
+                    0px 0px 40px rgba(255, 215, 0, 1),
+                    0px 0px 60px rgba(255, 215, 0, 0.6);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="wallpaper" id="wallpaper"></div>
+    <div class="title">THE LATEST SHIT</div>
+
+    <script>
+        const wallpaper = document.getElementById('wallpaper');
+        
+        // Berechne wie viele Emojis wir brauchen (viel mehr als der Bildschirm)
+        const emojisPerRow = 80;
+        const totalRows = 80;
+
+        // Erstelle die Emoji-Tapete
+        for (let row = 0; row < totalRows; row++) {
+            const rowDiv = document.createElement('div');
+            rowDiv.className = 'emoji-row';
+            
+            for (let col = 0; col < emojisPerRow; col++) {
+                const emoji = document.createElement('div');
+                emoji.className = 'emoji';
+                emoji.textContent = '💩';
+                
+                // Füge etwas Variation hinzu
+                if (Math.random() > 0.7) {
+                    emoji.style.transform = `rotate(${Math.random() * 30 - 15}deg)`;
+                }
+                if (Math.random() > 0.8) {
+                    emoji.style.fontSize = (28 + Math.random() * 8) + 'px';
+                }
+                
+                rowDiv.appendChild(emoji);
+            }
+            
+            wallpaper.appendChild(rowDiv);
+        }
+
+        console.log('💩 Wallpaper bereit für GIF-Export!');
+    </script>
+</body>
+</html>
